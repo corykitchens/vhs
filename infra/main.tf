@@ -31,6 +31,12 @@ resource "aws_ssm_parameter" "vsh_rdp_sg_parameter" {
 }
 
 
+resource "aws_sns_topic" "vhs_sns_send_info" {
+  name = "vhs-sns"
+}
+
+
+
 #IAM Document
 #Allow CodeBuild to assume Role
 data "aws_iam_policy_document" "allow_codebuild_assume" {
@@ -55,7 +61,8 @@ data "aws_iam_policy_document" "allow_codebuild_actions" {
       "ec2:*",
       "lambda:*",
       "s3:*",
-      "logs:*"
+      "logs:*",
+      "sns:*"
     ]
     resources = ["*"]
   }
@@ -82,6 +89,8 @@ resource "aws_codebuild_project" "vsh_codebuild_project" {
   name         = "VSH_Build_Server"
   description  = "CodeBuild project that builds requested servers"
   service_role = aws_iam_role.vsh_codebuild_execution_role.arn
+
+
   source {
     type            = "GITHUB"
     location        = "https://github.com/corykitchens/vhs.git"
@@ -97,5 +106,10 @@ resource "aws_codebuild_project" "vsh_codebuild_project" {
     compute_type = "BUILD_GENERAL1_LARGE"
     image        = "aws/codebuild/standard:2.0"
     type         = "LINUX_CONTAINER"
+
+    environment_variable {
+      name  = "SNS_TOPIC_ARN"
+      value = aws_sns_topic.vhs_sns_send_info.arn
+    }
   }
 }
