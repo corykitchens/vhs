@@ -22,10 +22,11 @@ def invoke_codebuild(key_name, instance_size):
   return res
 
 def handler(event, context):
+  print(event)
   body = event.get('body',{})
   body_as_json = json.loads(body)
-  key_name = body_as_json.get('KEY_NAME', 'HelloWorld')
-  instance_size = body_as_json.get('INSTANCE_SIZE', 't2.micro')
+  key_name = body_as_json.get('key_name', 'HelloWorld')
+  instance_size = body_as_json.get('instance_size', 't2.micro')
   resp = invoke_codebuild(key_name, instance_size)
   return {
     "headers": {
