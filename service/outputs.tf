@@ -10,6 +10,14 @@ output "password" {
   value = rsadecrypt(aws_instance.server.password_data, tls_private_key.priv_key.private_key_pem)
 }
 
+output "public_dns" {
+  value = aws_instance.server.public_dns
+}
+
+output "public_ipv4" {
+  value = aws_instance.server.public_ip
+}
+
 output "server_id" {
   value = aws_instance.server.id
 }
