@@ -6,6 +6,12 @@
 # resources
 # - EC2 Server /w Windows 2016
 # - PEM file
+
+data "aws_ssm_parameter" "sg_id" {
+  name = "/VSH/SG/ID"
+}
+
+
 resource "tls_private_key" "priv_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
@@ -17,8 +23,9 @@ resource "aws_key_pair" "generated_key" {
 }
 
 resource "aws_instance" "server" {
-  instance_type     = var.instance_size
-  ami               = var.ami_id
-  key_name          = aws_key_pair.generated_key.key_name
-  get_password_data = true
+  instance_type          = var.instance_size
+  ami                    = var.ami_id
+  key_name               = aws_key_pair.generated_key.key_name
+  get_password_data      = true
+  vpc_security_group_ids = ["${data.aws_ssm_parameter.sg_id.value}"]
 }

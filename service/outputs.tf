@@ -7,7 +7,7 @@
 # private_ip - Private IP address for RDP access
 
 output "password" {
-  value = aws_instance.server.password_data
+  value = rsadecrypt(aws_instance.server.password_data, tls_private_key.priv_key.private_key_pem)
 }
 
 output "server_id" {
@@ -21,3 +21,4 @@ output "server_arn" {
 output "server_private_ip" {
   value = aws_instance.server.private_ip
 }
+
