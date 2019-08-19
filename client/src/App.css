@@ -1,0 +1,8 @@
+body, html {
+  min-height: 900px;
+  background-color: #035642
+}
+
+.form-box {
+  min-height: 500px;
+}
