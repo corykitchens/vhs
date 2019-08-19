@@ -112,5 +112,15 @@ resource "aws_codebuild_project" "vsh_codebuild_project" {
       name  = "SNS_TOPIC_ARN"
       value = aws_sns_topic.vhs_sns_send_info.arn
     }
+
+    environment_variable {
+      name  = "KEY_NAME"
+      value = "default_key_name"
+    }
+
+    environment_variable {
+      name  = "INSTANCE_SIZE"
+      value = "t2.micro"
+    }
   }
 }
