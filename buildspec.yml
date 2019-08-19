@@ -3,13 +3,24 @@ phases:
   install:
     runtime-versions:
       golang: 1.12
+    commands:
+      - apt-get update
+      - apt-get install curl unzip -y
+      - curl https://releases.hashicorp.com/terraform/0.12.6/terraform_0.12.6_linux_amd64.zip -O -J -L
+      - unzip terraform_0.12.6_linux_amd64.zip -d /usr/local/bin/
+      - cd service/
   pre_build:
     commands:
-      - echo "Pre Build"
+      - echo "====== INITIALIZING TERRFORM PROJECT ======\n"
+      - terraform init
+      - echo "====== VALIDATING TF SOURCE ======\n"
+      - terraform validate
+      - echo "====== Plan ======\n"
+      - terraform plan
   build:
     commands:
-      - echo "Build"
-      - command
+      - echo "====== Creating Infrastructure ======\n"
+      - terraform apply -auto-approve
   post_build:
     commands:
       - echo "Post Build"
