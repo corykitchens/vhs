@@ -54,8 +54,8 @@ data "aws_iam_policy_document" "allow_codebuild_actions" {
     actions = [
       "ec2:*",
       "lambda:*",
-      "cloudwatch:*",
-      "s3:*"
+      "s3:*",
+      "logs:*"
     ]
     resources = ["*"]
   }
