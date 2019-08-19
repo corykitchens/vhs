@@ -1,0 +1,18 @@
+version: 0.2
+
+run-as: Linux-user-name
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.12
+  pre_build:
+    commands:
+      - echo "Pre Build"
+  build:
+    commands:
+      - echo "Build"
+      - command
+  post_build:
+    commands:
+      - echo "Post Build"
