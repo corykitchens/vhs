@@ -3,8 +3,8 @@
 # - instance_size
 # - ami_id
 variable "key_name" {
-  type    = "string"
-  default = "MyDefaultKeyName"
+  type = "string"
+  default = "HelloWorld"
 }
 
 variable "instance_size" {

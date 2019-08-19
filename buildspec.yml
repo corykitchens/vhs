@@ -20,7 +20,7 @@ phases:
   build:
     commands:
       - echo "====== Creating Infrastructure ======\n"
-      - terraform apply -auto-approve
+      - terraform apply -var "key_name=$(echo $KEY_NAME)" --auto-approve
   post_build:
     commands:
       - CONN_INFO=$(terraform output)
