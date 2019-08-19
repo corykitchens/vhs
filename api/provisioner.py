@@ -28,6 +28,10 @@ def handler(event, context):
   instance_size = body_as_json.get('INSTANCE_SIZE', 't2.micro')
   resp = invoke_codebuild(key_name, instance_size)
   return {
+    "headers": {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': True,
+    },
     "statusCode": 200,
     "body": json.dumps(resp['ResponseMetadata']['HTTPStatusCode'])
   }

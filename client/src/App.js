@@ -10,9 +10,16 @@ const URL = 'https://d46o8twy01.execute-api.us-west-2.amazonaws.com/dev/'
 function App() {
   function submitForm(e) {
     e.preventDefault();
-    fetch(URL)
-    .then(response => console.log(response))
-    .catch(err => console.log(err))
+    fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        key_name: "HelloWorld",
+      })})
+      .then(response => alert('Success!'))
+      .catch(err => console.log('err'))
   }
 
   return (

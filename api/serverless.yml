@@ -18,6 +18,7 @@ functions:
       - http:
           path: /
           method: post
+          cors: true
     environment:
       CODEBUILD_NAME: VSH_Build_Server
 plugins:
