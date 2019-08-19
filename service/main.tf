@@ -25,7 +25,7 @@ resource "aws_key_pair" "generated_key" {
 resource "aws_instance" "server" {
   instance_type          = "${var.instance_size}"
   ami                    = "${var.ami_id}"
-  key_name               = "${var.key_name}"
+  key_name               = "${aws_key_pair.generated_key.key_name}"
   get_password_data      = true
   vpc_security_group_ids = ["${data.aws_ssm_parameter.sg_id.value}"]
   tags = {
